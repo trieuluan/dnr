@@ -6,13 +6,13 @@ export type DnrMasterDocument = DnrMaster & Document;
 
 @Schema({
   collection: 'dnr_master',
-  toObject: {virtuals: true}
+  toJSON: {
+    virtuals: true,
+    getters: true
+  }
 })
 export class DnrMaster {
-  @Prop({
-    required: true, maxlength: 20,
-    type: mongoose.Schema.Types.String,
-  })
+  @Prop({ required: true, maxlength: 20 })
   event_id: string;
 
   @Prop({required: true, maxlength: 100})
@@ -58,12 +58,11 @@ export class DnrMaster {
   created_date: string;
 }
 
-const schema = SchemaFactory.createForClass(DnrMaster);
-schema.virtual('dnr_buy_inart', {
+const DnrMasterSchema = SchemaFactory.createForClass(DnrMaster);
+DnrMasterSchema.virtual('dnr_buy_inart', {
   ref: DnrBuyInart.name,
   localField: 'event_id',
-  foreignField: 'event_id',
-  justOne: true
+  foreignField: 'event_id'
 });
 
-export const DnrMasterSchema = schema;
+export { DnrMasterSchema }

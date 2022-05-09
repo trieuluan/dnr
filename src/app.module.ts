@@ -4,6 +4,7 @@ import { ConfigModule, ConfigService } from "@nestjs/config";
 import configuration from './config/configuration';
 import { SharesModule } from './shares/shares.module';
 import { MongooseModule } from "@nestjs/mongoose";
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -23,7 +24,8 @@ import { MongooseModule } from "@nestjs/mongoose";
       },
       inject: [ConfigService]
     }),
-    SharesModule
+    SharesModule,
+    AuthModule
   ],
   controllers: [],
   providers: [],
